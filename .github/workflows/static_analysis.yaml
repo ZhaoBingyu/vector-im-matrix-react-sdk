@@ -49,7 +49,7 @@ jobs:
             matrix:
                 args:
                     - "--strict --noImplicitAny"
-                    - "--noImplicitAny"
+                    - "--strictNullChecks"
         steps:
             - uses: actions/checkout@v3
               with:
