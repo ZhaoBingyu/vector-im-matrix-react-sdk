@@ -128,6 +128,8 @@ export default class UserSettingsDialog extends React.Component<IProps, IState> 
                 "UserSettingsKeyboard",
             ),
         );
+
+        SdkConfig.get("setting_defaults").show_side_bar &&
         tabs.push(
             new Tab(
                 UserTab.Sidebar,
@@ -176,6 +178,7 @@ export default class UserSettingsDialog extends React.Component<IProps, IState> 
             SdkConfig.get("show_labs_settings") ||
             SettingsStore.getFeatureSettingNames().some((k) => SettingsStore.getBetaInfo(k))
         ) {
+            SdkConfig.get("setting_defaults").show_labs_settings &&
             tabs.push(
                 new Tab(
                     UserTab.Labs,
@@ -197,6 +200,7 @@ export default class UserSettingsDialog extends React.Component<IProps, IState> 
                 ),
             );
         }
+        SdkConfig.get("setting_defaults").show_help_about &&
         tabs.push(
             new Tab(
                 UserTab.Help,
