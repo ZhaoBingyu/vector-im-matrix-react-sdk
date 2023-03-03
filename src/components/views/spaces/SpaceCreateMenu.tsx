@@ -47,6 +47,7 @@ import { getKeyBindingsManager } from "../../../KeyBindingsManager";
 import { KeyBindingAction } from "../../../accessibility/KeyboardShortcuts";
 import { MatrixClientPeg } from "../../../MatrixClientPeg";
 import { shouldShowFeedback } from "../../../utils/Feedback";
+import SdkConfig from "../../../SdkConfig";
 
 export const createSpace = async (
     name: string,
@@ -311,7 +312,7 @@ const SpaceCreateMenu: React.FC<{
 
                 <p>{_t("To join a space you'll need an invite.")}</p>
 
-                <SpaceFeedbackPrompt onClick={onFinished} />
+                {!SdkConfig.get("setting_defaults").dis_feedback && <SpaceFeedbackPrompt onClick={onFinished} />}
             </React.Fragment>
         );
     } else {

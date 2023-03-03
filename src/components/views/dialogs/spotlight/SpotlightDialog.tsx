@@ -93,6 +93,7 @@ import { isLocalRoom } from "../../../../utils/localRoom/isLocalRoom";
 import { shouldShowFeedback } from "../../../../utils/Feedback";
 import RoomAvatar from "../../avatars/RoomAvatar";
 import { useFeatureEnabled } from "../../../../hooks/useSettings";
+import SdkConfig from "../../../../SdkConfig";
 
 const MAX_RECENT_SEARCHES = 10;
 const SECTION_LIMIT = 50; // only show 50 results per section for performance reasons
@@ -1240,26 +1241,29 @@ const SpotlightDialog: React.FC<IProps> = ({ initialText = "", initialFilter = n
                 >
                     {content}
                 </div>
-
-                <div className="mx_SpotlightDialog_footer">
-                    {openFeedback &&
-                        _t(
-                            "Results not as expected? Please <a>give feedback</a>.",
-                            {},
-                            {
-                                a: (sub) => (
-                                    <AccessibleButton kind="link_inline" onClick={openFeedback}>
-                                        {sub}
-                                    </AccessibleButton>
-                                ),
-                            },
+                {
+                    !SdkConfig.get("setting_defaults").dis_feedback &&
+                    <div className="mx_SpotlightDialog_footer">
+                        {openFeedback &&
+                            _t(
+                                "Results not as expected? Please <a>give feedback</a>.",
+                                {},
+                                {
+                                    a: (sub) => (
+                                        <AccessibleButton kind="link_inline" onClick={openFeedback}>
+                                            {sub}
+                                        </AccessibleButton>
+                                    ),
+                                },
+                            )}
+                        {openFeedback && (
+                            <AccessibleButton kind="primary_outline" onClick={openFeedback}>
+                                {_t("Feedback")}
+                            </AccessibleButton>
                         )}
-                    {openFeedback && (
-                        <AccessibleButton kind="primary_outline" onClick={openFeedback}>
-                            {_t("Feedback")}
-                        </AccessibleButton>
-                    )}
-                </div>
+                    </div>
+                }
+                
             </BaseDialog>
         </>
     );

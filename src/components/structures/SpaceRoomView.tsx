@@ -35,6 +35,7 @@ import { useStateArray } from "../../hooks/useStateArray";
 import { _t } from "../../languageHandler";
 import PosthogTrackers from "../../PosthogTrackers";
 import { inviteMultipleToRoom, showRoomInviteDialog } from "../../RoomInvite";
+import SdkConfig from "../../SdkConfig";
 import { UIComponent } from "../../settings/UIFeature";
 import { UPDATE_EVENT } from "../../stores/AsyncStore";
 import RightPanelStore from "../../stores/right-panel/RightPanelStore";
@@ -267,7 +268,7 @@ const SpaceLanding: React.FC<{ space: Room }> = ({ space }) => {
         <div className="mx_SpaceRoomView_landing">
             <div className="mx_SpaceRoomView_landing_header">
                 <RoomAvatar room={space} height={80} width={80} viewAvatarOnClick={true} />
-                <SpaceFeedbackPrompt />
+                {!SdkConfig.get("setting_defaults").dis_feedback && <SpaceFeedbackPrompt />}
             </div>
             <div className="mx_SpaceRoomView_landing_name">
                 <RoomName room={space}>
