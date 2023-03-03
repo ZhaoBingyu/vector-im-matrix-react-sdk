@@ -515,8 +515,10 @@ export default class LoginComponent extends React.PureComponent<IProps, IState> 
         if (!this.state.flows) return null;
 
         // this is the ideal order we want to show the flows in
-        const order = ["m.login.password", "m.login.sso"];
-
+        let order = ["m.login.password", "m.login.sso"];
+        if(SdkConfig.get("setting_defaults").dis_login_password){
+            order = ["m.login.sso"];
+        }
         const flows = order.map((type) => this.state.flows.find((flow) => flow.type === type)).filter(Boolean);
         return (
             <React.Fragment>
