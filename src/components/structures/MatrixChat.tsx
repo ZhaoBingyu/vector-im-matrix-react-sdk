@@ -389,10 +389,15 @@ export default class MatrixChat extends React.PureComponent<IProps, IState> {
         if (crossSigningIsSetUp) {
             // if the user has previously set up cross-signing, verify this device so we can fetch the
             // private keys.
-            if (SecurityCustomisations.SHOW_ENCRYPTION_SETUP_UI === false) {
-                this.onLoggedIn();
-            } else {
+            // if (SecurityCustomisations.SHOW_ENCRYPTION_SETUP_UI === false) {
+            //     this.onLoggedIn();
+            // } else {
+            //     this.setStateForNewView({ view: Views.COMPLETE_SECURITY });
+            // }
+            if(SettingsStore.getValue("SHOW_ENCRYPTION_SETUP_UI")){
                 this.setStateForNewView({ view: Views.COMPLETE_SECURITY });
+            }else{
+                this.onLoggedIn();
             }
         } else if (await cli.doesServerSupportUnstableFeature("org.matrix.e2e_cross_signing")) {
             // if cross-signing is not yet set up, do so now if possible.
