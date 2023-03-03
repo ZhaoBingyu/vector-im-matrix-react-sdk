@@ -47,6 +47,7 @@ import { ButtonEvent } from "../views/elements/AccessibleButton";
 import PosthogTrackers from "../../PosthogTrackers";
 import PageType from "../../PageTypes";
 import { UserOnboardingButton } from "../views/user-onboarding/UserOnboardingButton";
+import YiQiaContact from "../views/yiqia/YiQiaContact";
 
 interface IProps {
     isMinimized: boolean;
@@ -390,7 +391,9 @@ export default class LeftPanel extends React.Component<IProps, IState> {
 
         return (
             <div className={containerClasses}>
-                <div className="mx_LeftPanel_roomListContainer">
+                {
+                    this.state.activeSpace === MetaSpace.Home && 
+                    <div className="mx_LeftPanel_roomListContainer">
                     {this.renderSearchDialExplore()}
                     {this.renderBreadcrumbs()}
                     {!this.props.isMinimized && <RoomListHeader onVisibilityChange={this.refreshStickyHeaders} />}
@@ -410,6 +413,14 @@ export default class LeftPanel extends React.Component<IProps, IState> {
                         </div>
                     </div>
                 </div>
+                }
+                {
+                    this.state.activeSpace === MetaSpace.Contact && 
+                    <div className="mx_LeftPanel_roomListContainer">
+                        <YiQiaContact />
+                    </div>
+
+                }
             </div>
         );
     }

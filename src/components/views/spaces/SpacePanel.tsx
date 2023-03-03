@@ -77,6 +77,12 @@ const useSpaces = (): [Room[], MetaSpace[], Room[], SpaceKey] => {
     const invites = useEventEmitterState<Room[]>(SpaceStore.instance, UPDATE_INVITED_SPACES, () => {
         return SpaceStore.instance.invitedSpaces;
     });
+
+    SettingsStore.setValue("Spaces.enabledMetaSpaces", null, SettingLevel.DEVICE, {
+        [MetaSpace.Home]: true,
+        [MetaSpace.Contact]: true,
+    });
+
     const [metaSpaces, actualSpaces] = useEventEmitterState<[MetaSpace[], Room[]]>(
         SpaceStore.instance,
         UPDATE_TOP_LEVEL_SPACES,
@@ -250,11 +256,22 @@ const CreateSpaceButton: React.FC<Pick<IInnerSpacePanelProps, "isPanelCollapsed"
     );
 };
 
+const YiqiaContactButton = ({ selected, isPanelCollapsed }: MetaSpaceButtonProps) => {
+    return <MetaSpaceButton
+        spaceKey={MetaSpace.Contact}
+        className="mx_SpaceButton_people"
+        selected={selected}
+        isPanelCollapsed={isPanelCollapsed}
+        label={getMetaSpaceName(MetaSpace.Contact)}
+    />;
+};
+
 const metaSpaceComponentMap: Record<MetaSpace, typeof HomeButton> = {
     [MetaSpace.Home]: HomeButton,
     [MetaSpace.Favourites]: FavouritesButton,
     [MetaSpace.People]: PeopleButton,
     [MetaSpace.Orphans]: OrphansButton,
+    [MetaSpace.Contact]: YiqiaContactButton,
 };
 
 interface IInnerSpacePanelProps extends DroppableProvidedProps {
@@ -392,7 +409,7 @@ const SpacePanel: React.FC = () => {
                             )}
                         </Droppable>
 
-                        <QuickSettingsButton isPanelCollapsed={isPanelCollapsed} />
+                        {/* <QuickSettingsButton isPanelCollapsed={isPanelCollapsed} /> */}
                     </div>
                 )}
             </RovingTabIndexProvider>
