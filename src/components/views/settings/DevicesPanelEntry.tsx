@@ -30,6 +30,7 @@ import LogoutDialog from "../dialogs/LogoutDialog";
 import DeviceTile from "./devices/DeviceTile";
 import SelectableDeviceTile from "./devices/SelectableDeviceTile";
 import { DeviceType } from "../../../utils/device/parseUserAgent";
+import SdkConfig from "../../../SdkConfig";
 
 interface IProps {
     device: IMyDevice;
@@ -156,7 +157,7 @@ export default class DevicesPanelEntry extends React.Component<IProps, IState> {
         ) : (
             <React.Fragment>
                 {signOutButton}
-                {verifyButton}
+                {!SdkConfig.get("setting_defaults").dis_encryption && verifyButton}
                 <AccessibleButton kind="primary_outline" onClick={this.onRename}>
                     {_t("Rename")}
                 </AccessibleButton>
@@ -172,9 +173,13 @@ export default class DevicesPanelEntry extends React.Component<IProps, IState> {
         if (this.props.isOwnDevice) {
             return (
                 <div className={classNames("mx_DevicesPanel_device", "mx_DevicesPanel_myDevice")}>
-                    <div className="mx_DevicesPanel_deviceTrust">
+                    {
+                        !SdkConfig.get("setting_defaults").dis_encryption &&
+                        <div className="mx_DevicesPanel_deviceTrust">
                         <span className={"mx_DevicesPanel_icon mx_E2EIcon " + iconClass} />
-                    </div>
+                        </div>
+                    }
+                    
                     <DeviceTile device={extendedDevice}>{buttons}</DeviceTile>
                 </div>
             );

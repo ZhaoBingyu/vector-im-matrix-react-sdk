@@ -2711,6 +2711,7 @@
     "Devices without encryption support": "不支持加密的设备",
     "Unverified devices": "未验证的设备",
     "Verified devices": "已验证的设备",
+    "Signed-in devices": "已登陆的设备",
     "Select all": "全选",
     "Deselect all": "取消全选",
     "Sign out devices|one": "注销设备",

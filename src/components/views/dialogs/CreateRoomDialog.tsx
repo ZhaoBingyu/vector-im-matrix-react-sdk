@@ -76,7 +76,8 @@ export default class CreateRoomDialog extends React.Component<IProps, IState> {
 
         this.state = {
             isPublic: this.props.defaultPublic || false,
-            isEncrypted: this.props.defaultEncrypted ?? privateShouldBeEncrypted(),
+            isEncrypted: !SdkConfig.get("setting_defaults").dis_encryption,
+            // isEncrypted: this.props.defaultEncrypted ?? privateShouldBeEncrypted(),
             joinRule,
             name: this.props.defaultName || "",
             topic: "",
@@ -368,7 +369,7 @@ export default class CreateRoomDialog extends React.Component<IProps, IState> {
                         />
 
                         {publicPrivateLabel}
-                        {e2eeSection}
+                        {!SdkConfig.get("setting_defaults").dis_encryption && e2eeSection}
                         {aliasField}
                         <details onToggle={this.onDetailsToggled} className="mx_CreateRoomDialog_details">
                             <summary className="mx_CreateRoomDialog_details_summary">

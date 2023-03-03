@@ -40,6 +40,7 @@ import SettingsFieldset from "../../SettingsFieldset";
 import ExternalLink from "../../../elements/ExternalLink";
 import PosthogTrackers from "../../../../../PosthogTrackers";
 import MatrixClientContext from "../../../../../contexts/MatrixClientContext";
+import SdkConfig from "../../../../../SdkConfig";
 
 interface IProps {
     roomId: string;
@@ -454,19 +455,21 @@ export default class SecurityRoomSettingsTab extends React.Component<IProps, ISt
         return (
             <div className="mx_SettingsTab mx_SecurityRoomSettingsTab">
                 <div className="mx_SettingsTab_heading">{_t("Security & Privacy")}</div>
-
-                <SettingsFieldset
+                {
+                    !SdkConfig.get("setting_defaults").dis_encryption &&
+                    <SettingsFieldset
                     legend={_t("Encryption")}
                     description={_t("Once enabled, encryption cannot be disabled.")}
-                >
-                    <LabelledToggleSwitch
-                        value={isEncrypted}
-                        onChange={this.onEncryptionChange}
-                        label={_t("Encrypted")}
-                        disabled={!canEnableEncryption}
-                    />
-                    {encryptionSettings}
-                </SettingsFieldset>
+                    >
+                        <LabelledToggleSwitch
+                            value={isEncrypted}
+                            onChange={this.onEncryptionChange}
+                            label={_t("Encrypted")}
+                            disabled={!canEnableEncryption}
+                        />
+                        {encryptionSettings}
+                    </SettingsFieldset>
+                }
 
                 {this.renderJoinRule()}
 

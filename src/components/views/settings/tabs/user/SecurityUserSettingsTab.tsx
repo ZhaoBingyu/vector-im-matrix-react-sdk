@@ -41,6 +41,7 @@ import { privateShouldBeEncrypted } from "../../../../../utils/rooms";
 import LoginWithQR, { Mode } from "../../../auth/LoginWithQR";
 import LoginWithQRSection from "../../devices/LoginWithQRSection";
 import type { IServerVersions } from "matrix-js-sdk/src/matrix";
+import SdkConfig from "../../../../../SdkConfig";
 
 interface IIgnoredUserProps {
     userId: string;
@@ -410,18 +411,25 @@ export default class SecurityUserSettingsTab extends React.Component<IProps, ISt
                 </div>
             );
         }
-
+       
         return (
             <div className="mx_SettingsTab mx_SecurityUserSettingsTab">
                 {warning}
                 {devicesSection}
-                <div className="mx_SettingsTab_heading">{_t("Encryption")}</div>
-                <div className="mx_SettingsTab_section">
-                    {secureBackup}
-                    {eventIndex}
-                    {crossSigning}
-                    <CryptographyPanel />
-                </div>
+                {
+                    !SdkConfig.get("setting_defaults").dis_encryption &&
+                    <>
+                    <div className="mx_SettingsTab_heading">{_t("Encryption")}</div>
+                    <div className="mx_SettingsTab_section">
+                        {secureBackup}
+                        {eventIndex}
+                        {crossSigning}
+                        <CryptographyPanel />
+                    </div>
+                    </>
+                    
+
+                }
                 {privacySection}
                 {advancedSection}
             </div>

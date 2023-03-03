@@ -77,6 +77,7 @@ import { isLocalRoom } from "../../../utils/localRoom/isLocalRoom";
 import { ElementCall } from "../../../models/Call";
 import { UnreadNotificationBadge } from "./NotificationBadge/UnreadNotificationBadge";
 import { EventTileThreadToolbar } from "./EventTile/EventTileThreadToolbar";
+import SdkConfig from "../../../SdkConfig";
 
 export type GetRelationsForEvent = (
     eventId: string,
@@ -741,6 +742,9 @@ export class UnwrappedEventTile extends React.Component<EventTileProps, IState> 
                 return; // we expect this to be unencrypted
             }
             // if the event is not encrypted, but it's an e2e room, show the open padlock
+            if(SdkConfig.get("setting_defaults").dis_encryption){
+                return;
+            }
             return <E2ePadlockUnencrypted />;
         }
 

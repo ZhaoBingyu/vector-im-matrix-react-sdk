@@ -52,6 +52,7 @@ import RightPanelStore from "../../../stores/right-panel/RightPanelStore";
 import PosthogTrackers from "../../../PosthogTrackers";
 import { shouldShowComponent } from "../../../customisations/helpers/UIComponents";
 import { PollHistoryDialog } from "../dialogs/polls/PollHistoryDialog";
+import SdkConfig from "../../../SdkConfig";
 
 interface IProps {
     room: Room;
@@ -303,7 +304,9 @@ const RoomSummaryCard: React.FC<IProps> = ({ room, onClose }) => {
         <React.Fragment>
             <div className="mx_RoomSummaryCard_avatar" role="presentation">
                 <RoomAvatar room={room} height={54} width={54} viewAvatarOnClick />
-                <TextWithTooltip
+                {
+                    !SdkConfig.get("setting_defaults").dis_encryption &&
+                    <TextWithTooltip
                     tooltip={isRoomEncrypted ? _t("Encrypted") : _t("Not encrypted")}
                     class={classNames("mx_RoomSummaryCard_e2ee", {
                         mx_RoomSummaryCard_e2ee_normal: isRoomEncrypted,
@@ -311,6 +314,7 @@ const RoomSummaryCard: React.FC<IProps> = ({ room, onClose }) => {
                         mx_RoomSummaryCard_e2ee_verified: isRoomEncrypted && e2eStatus === E2EStatus.Verified,
                     })}
                 />
+                }
             </div>
 
             <RoomName room={room}>{(name) => <h2 title={name}>{name}</h2>}</RoomName>

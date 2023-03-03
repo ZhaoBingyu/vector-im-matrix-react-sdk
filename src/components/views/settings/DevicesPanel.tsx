@@ -27,6 +27,7 @@ import Spinner from "../elements/Spinner";
 import AccessibleButton from "../elements/AccessibleButton";
 import { deleteDevicesWithInteractiveAuth } from "./devices/deleteDevices";
 import MatrixClientContext from "../../../contexts/MatrixClientContext";
+import SdkConfig from "../../../SdkConfig";
 
 interface IProps {
     className?: string;
@@ -311,8 +312,17 @@ export default class DevicesPanel extends React.Component<IProps, IState> {
                 <React.Fragment>
                     <hr />
                     <div className="mx_DevicesPanel_header">
-                        <div className="mx_DevicesPanel_header_trust">{trustIcon}</div>
-                        <div className="mx_DevicesPanel_header_title">{title}</div>
+                        {
+                            !SdkConfig.get("setting_defaults").dis_encryption ?
+                            <>
+                            <div className="mx_DevicesPanel_header_title">{title}</div>
+                            </> :
+                            <>
+                             <div className="mx_DevicesPanel_header_trust">{trustIcon}</div>
+                                <div className="mx_DevicesPanel_header_title">{title}</div>
+                            </>
+                        }
+                       
                         {selectButton}
                     </div>
                     {deviceList.map(this.renderDevice)}
@@ -338,6 +348,7 @@ export default class DevicesPanel extends React.Component<IProps, IState> {
             nonCryptoDevices,
         );
 
+
         const deleteButton = this.state.deleting ? (
             <Spinner w={22} h={22} />
         ) : (
@@ -352,12 +363,23 @@ export default class DevicesPanel extends React.Component<IProps, IState> {
             </AccessibleButton>
         );
 
+        const signedIndevices = section(
+            <React.Fragment />,
+            _t("Signed-in devices"),
+            otherDevices,
+        );
+
         const otherDevicesSection =
             otherDevices.length > 0 ? (
+                !SdkConfig.get("setting_defaults").dis_encryption ? 
                 <React.Fragment>
                     {verifiedDevicesSection}
                     {unverifiedDevicesSection}
                     {nonCryptoDevicesSection}
+                    {deleteButton}
+                </React.Fragment> :
+                <React.Fragment>
+                    {signedIndevices}
                     {deleteButton}
                 </React.Fragment>
             ) : (

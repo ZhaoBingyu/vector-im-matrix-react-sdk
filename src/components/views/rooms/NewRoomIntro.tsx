@@ -39,6 +39,7 @@ import { shouldShowComponent } from "../../../customisations/helpers/UIComponent
 import { UIComponent } from "../../../settings/UIFeature";
 import { privateShouldBeEncrypted } from "../../../utils/rooms";
 import { LocalRoom } from "../../../models/LocalRoom";
+import SdkConfig from "../../../SdkConfig";
 
 function hasExpectedEncryptionSettings(matrixClient: MatrixClient, room: Room): boolean {
     const isEncrypted: boolean = matrixClient.isRoomEncrypted(room.roomId);
@@ -276,7 +277,8 @@ const NewRoomIntro: React.FC = () => {
 
     return (
         <li className="mx_NewRoomIntro">
-            {!hasExpectedEncryptionSettings(cli, room) && (
+            { !SdkConfig.get("setting_defaults").dis_encryption &&
+            !hasExpectedEncryptionSettings(cli, room) && (
                 <EventTileBubble
                     className="mx_cryptoEvent mx_cryptoEvent_icon_warning"
                     title={_t("End-to-end encryption isn't enabled")}

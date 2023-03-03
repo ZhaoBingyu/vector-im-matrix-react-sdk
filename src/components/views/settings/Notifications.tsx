@@ -275,6 +275,10 @@ export default class Notifications extends React.PureComponent<IProps, IState> {
         for (const category of vectorCategories) {
             preparedNewState.vectorPushRules[category] = [];
             for (const rule of defaultRules[category]) {
+                const disEncryptionfilterArr = [".m.rule.encrypted_room_one_to_one",  ".m.rule.encrypted"];
+                if(SdkConfig.get("setting_defaults").dis_encryption && disEncryptionfilterArr.includes(rule as any)){
+                    continue;
+                }
                 const definition: VectorPushRuleDefinition = VectorPushRulesDefinitions[rule.rule_id];
                 const vectorState = definition.ruleToVectorState(rule);
                 preparedNewState.vectorPushRules[category].push({

@@ -22,6 +22,7 @@ import MatrixClientContext from "../../../../contexts/MatrixClientContext";
 import { useNotificationState } from "../../../../hooks/useRoomNotificationState";
 import { _t } from "../../../../languageHandler";
 import { determineUnreadState } from "../../../../RoomNotifs";
+import SdkConfig from "../../../../SdkConfig";
 import { humanReadableNotificationColor } from "../../../../stores/notifications/NotificationColor";
 import { doesRoomOrThreadHaveUnreadMessages } from "../../../../Unread";
 import BaseTool, { DevtoolsContext, IDevtoolsProps } from "./BaseTool";
@@ -50,12 +51,16 @@ export default function RoomNotifications({ onBack }: IDevtoolsProps): JSX.Eleme
                     <li>
                         {_t("Notification state is")} <strong>{notificationState}</strong>
                     </li>
-                    <li>
+                    {
+                        !SdkConfig.get("setting_defaults").dis_encryption &&
+                        <li>
                         {_t("Room is ")}
                         <strong>
                             {cli.isRoomEncrypted(room.roomId!) ? _t("encrypted ✅") : _t("not encrypted 🚨")}
                         </strong>
                     </li>
+                    }
+                   
                 </ul>
             </section>
 

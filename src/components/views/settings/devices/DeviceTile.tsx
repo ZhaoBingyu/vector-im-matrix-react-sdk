@@ -25,6 +25,7 @@ import { INACTIVE_DEVICE_AGE_DAYS, isDeviceInactive } from "./filter";
 import { ExtendedDevice } from "./types";
 import { DeviceTypeIcon } from "./DeviceTypeIcon";
 import { preventDefaultWrapper } from "../../../../utils/NativeEventUtils";
+import SdkConfig from "../../../../SdkConfig";
 export interface DeviceTileProps {
     device: ExtendedDevice;
     isSelected?: boolean;
@@ -77,7 +78,7 @@ const DeviceTile: React.FC<DeviceTileProps> = ({ device, children, isSelected, o
     const metadata = inactive
         ? [inactive, { id: "lastSeenIp", value: device.last_seen_ip }]
         : [
-              { id: "isVerified", value: verificationStatus },
+              { id: "isVerified", value: !SdkConfig.get("setting_defaults").dis_encryption && verificationStatus },
               { id: "lastActivity", value: lastActivity },
               { id: "lastSeenIp", value: device.last_seen_ip },
               { id: "deviceId", value: device.device_id },
@@ -89,6 +90,7 @@ const DeviceTile: React.FC<DeviceTileProps> = ({ device, children, isSelected, o
             data-testid={`device-tile-${device.device_id}`}
             onClick={onClick}
         >
+            
             <DeviceTypeIcon isVerified={device.isVerified} isSelected={isSelected} deviceType={device.deviceType} />
             <div className="mx_DeviceTile_info">
                 <DeviceTileName device={device} />
