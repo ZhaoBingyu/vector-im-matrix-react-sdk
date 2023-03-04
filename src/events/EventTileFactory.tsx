@@ -54,6 +54,7 @@ import {
     shouldDisplayAsVoiceBroadcastStoppedText,
     VoiceBroadcastChunkEventType,
 } from "../voice-broadcast";
+import { CustomEventType } from "../components/views/qingCloud/custom_schema/CustomConstant";
 
 // Subset of EventTile's IProps plus some mixins
 export interface EventTileTypeProps {
@@ -104,6 +105,7 @@ const EVENT_TILE_TYPES = new Map<string, Factory>([
     [EventType.KeyVerificationCancel, KeyVerificationConclFactory],
     [EventType.KeyVerificationDone, KeyVerificationConclFactory],
     [EventType.CallInvite, LegacyCallEventFactory], // note that this requires a special factory type
+    [CustomEventType.QuanXiang, MessageEventFactory],
 ]);
 
 const STATE_EVENT_TILE_TYPES = new Map<string, Factory>([

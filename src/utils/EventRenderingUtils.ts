@@ -26,6 +26,7 @@ import { MatrixClientPeg } from "../MatrixClientPeg";
 import { getMessageModerationState, isLocationEvent, MessageModerationState } from "./EventUtils";
 import { ElementCall } from "../models/Call";
 import { VoiceBroadcastInfoEventType, VoiceBroadcastInfoState } from "../voice-broadcast";
+import { CustomEventTypeShowArr } from "../components/views/qingCloud/custom_schema/CustomConstant";
 
 const calcIsInfoMessage = (
     eventType: EventType | string,
@@ -43,7 +44,8 @@ const calcIsInfoMessage = (
         !M_POLL_START.matches(eventType) &&
         !M_POLL_END.matches(eventType) &&
         !M_BEACON_INFO.matches(eventType) &&
-        !(eventType === VoiceBroadcastInfoEventType && content?.state === VoiceBroadcastInfoState.Started)
+        !(eventType === VoiceBroadcastInfoEventType && content?.state === VoiceBroadcastInfoState.Started) && 
+        eventType !== CustomEventTypeShowArr[0]
     );
 };
 

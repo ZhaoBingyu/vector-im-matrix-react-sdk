@@ -13,9 +13,8 @@ import ThemeWatcher from '../../../../../settings/watchers/ThemeWatcher';
 
 const NextCloudShareModel= (props: any) => {
 
-let elementTheme = new ThemeWatcher().getEffectiveTheme();
+    let elementTheme = new ThemeWatcher().getEffectiveTheme();
 
-console.log('elementTheme====',elementTheme)
     const { title= "网盘", open, showSave, showShare, fileObj, hasRowSelection, onOk, onCancel }=props;
     const [userName, setUserName]=useState();
     const [currentPath, setCurrentPath]=useState('');

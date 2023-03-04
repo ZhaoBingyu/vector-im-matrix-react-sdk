@@ -45,6 +45,8 @@ import { DecryptionFailureBody } from "./DecryptionFailureBody";
 import { GetRelationsForEvent, IEventTileOps } from "../rooms/EventTile";
 import { VoiceBroadcastBody, VoiceBroadcastInfoEventType, VoiceBroadcastInfoState } from "../../../voice-broadcast";
 import NextCloudShareLink from "../qingCloud/next_cloud/NextCloudShareLink";
+import CustomSchema from "../qingCloud/custom_schema";
+import { CustomEventTypeShowArr } from "../qingCloud/custom_schema/CustomConstant";
 
 // onMessageAllowed is handled internally
 interface IProps extends Omit<IBodyProps, "onMessageAllowed" | "mediaEventHelper"> {
@@ -195,6 +197,14 @@ export default class MessageEvent extends React.Component<IProps> implements IMe
                     BodyType = MjolnirBody;
                 }
             }
+        }
+
+         // 自定义类型
+        if (type && CustomEventTypeShowArr.includes(type)) {
+            BodyType = CustomSchema;
+            // BodyType = TextualBody;
+
+
         }
 
         // @ts-ignore - this is a dynamic react component
