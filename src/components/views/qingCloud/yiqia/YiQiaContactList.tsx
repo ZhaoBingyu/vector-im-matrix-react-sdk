@@ -4,9 +4,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Input, notification, Tree } from 'antd';
 import { ApartmentOutlined } from '@ant-design/icons';
-import { Action } from "../../../dispatcher/actions";
-import dis from '../../../dispatcher/dispatcher';
-import BaseAvatar from '../avatars/BaseAvatar';
+import { Action } from "../../../../dispatcher/actions";
+import dis from '../../../../dispatcher/dispatcher';
+import BaseAvatar from '../../avatars/BaseAvatar';
 import type { DataNode } from 'antd/es/tree';
 import { getContactList } from './request';
 

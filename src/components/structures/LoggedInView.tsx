@@ -71,7 +71,7 @@ import { IConfigOptions } from "../../IConfigOptions";
 import LeftPanelLiveShareWarning from "../views/beacon/LeftPanelLiveShareWarning";
 import { UserOnboardingPage } from "../views/user-onboarding/UserOnboardingPage";
 import { PipContainer } from "./PipContainer";
-import YiQiaContactView from "../views/yiqia/YiQiaContactView";
+import YiQiaContactView from "../views/qingCloud/yiqia/YiQiaContactView";
 
 // We need to fetch each pinned message individually (if we don't already have it)
 // so each pinned message may trigger a request. Limit the number per room for sanity.

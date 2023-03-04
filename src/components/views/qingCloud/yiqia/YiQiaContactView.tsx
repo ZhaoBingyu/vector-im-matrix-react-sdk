@@ -2,10 +2,10 @@
 import React from 'react';
 import { MessageOutlined } from '@ant-design/icons';
 
-import BaseAvatar from '../avatars/BaseAvatar';
-import AuthHeaderLogo from '../auth/AuthHeaderLogo';
-import { MatrixClientPeg } from '../../../MatrixClientPeg';
-import { DirectoryMember, startDmOnFirstMessage } from '../../../utils/direct-messages';
+import BaseAvatar from '../../avatars/BaseAvatar';
+import AuthHeaderLogo from '../../auth/AuthHeaderLogo';
+import { MatrixClientPeg } from '../../../../MatrixClientPeg';
+import { DirectoryMember, startDmOnFirstMessage } from '../../../../utils/direct-messages';
 
 interface IProps {
     data?: any;

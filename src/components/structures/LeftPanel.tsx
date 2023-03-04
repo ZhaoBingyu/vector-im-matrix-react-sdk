@@ -47,7 +47,7 @@ import { ButtonEvent } from "../views/elements/AccessibleButton";
 import PosthogTrackers from "../../PosthogTrackers";
 import PageType from "../../PageTypes";
 import { UserOnboardingButton } from "../views/user-onboarding/UserOnboardingButton";
-import YiQiaContact from "../views/yiqia/YiQiaContact";
+import YiQiaContact from "../views/qingCloud/yiqia/YiQiaContact";
 
 interface IProps {
     isMinimized: boolean;

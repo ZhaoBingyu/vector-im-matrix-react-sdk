@@ -2,9 +2,9 @@
 /* eslint-disable camelcase */
 import React, { useEffect } from "react";
 
-import AutoHideScrollbar from "../../structures/AutoHideScrollbar";
-import dis from '../../../dispatcher/dispatcher';
-import { Action } from "../../../dispatcher/actions";
+import AutoHideScrollbar from "../../../structures/AutoHideScrollbar";
+import dis from '../../../../dispatcher/dispatcher';
+import { Action } from "../../../../dispatcher/actions";
 import YiQiaContactList from "./YiQiaContactList";
 
 const YiQiaContact = () => {
