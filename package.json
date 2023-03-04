@@ -118,6 +118,7 @@
         "ua-parser-js": "^1.0.2",
         "url": "^0.11.0",
         "what-input": "^5.2.10",
+        "xml2js": "^0.4.23",
         "zxcvbn": "^4.4.2"
     },
     "devDependencies": {

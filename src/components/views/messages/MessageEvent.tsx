@@ -44,6 +44,7 @@ import MBeaconBody from "./MBeaconBody";
 import { DecryptionFailureBody } from "./DecryptionFailureBody";
 import { GetRelationsForEvent, IEventTileOps } from "../rooms/EventTile";
 import { VoiceBroadcastBody, VoiceBroadcastInfoEventType, VoiceBroadcastInfoState } from "../../../voice-broadcast";
+import NextCloudShareLink from "../qingCloud/next_cloud/NextCloudShareLink";
 
 // onMessageAllowed is handled internally
 interface IProps extends Omit<IBodyProps, "onMessageAllowed" | "mediaEventHelper"> {
@@ -69,6 +70,7 @@ const baseBodyTypes = new Map<string, typeof React.Component>([
     [MsgType.File, MFileBody],
     [MsgType.Audio, MVoiceOrAudioBody],
     [MsgType.Video, MVideoBody],
+    ['m.next.cloud.share.link', NextCloudShareLink],
 ]);
 const baseEvTypes = new Map<string, React.ComponentType<Partial<IBodyProps>>>([
     [EventType.Sticker, MStickerBody],

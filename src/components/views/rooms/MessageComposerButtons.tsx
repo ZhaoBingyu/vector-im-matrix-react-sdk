@@ -40,6 +40,7 @@ import { chromeFileInputFix } from "../../../utils/BrowserWorkarounds";
 import IconizedContextMenu, { IconizedContextMenuOptionList } from "../context_menus/IconizedContextMenu";
 import { EmojiButton } from "./EmojiButton";
 import { useSettingValue } from "../../../hooks/useSettings";
+import ShareNextCloudButton from "../qingCloud/next_cloud/nextCloudShareButton";
 
 interface IProps {
     addEmoji: (emoji: string) => boolean;
@@ -86,9 +87,10 @@ const MessageComposerButtons: React.FC<IProps> = (props: IProps) => {
             ) : (
                 emojiButton(props)
             ),
+            uploadButton(), // props passed via UploadButtonContext
+            shareNextCloudButton({ ...props, room, roomId, matrixClient }), //nextCloud文件分享
         ];
         moreButtons = [
-            uploadButton(), // props passed via UploadButtonContext
             showStickersButton(props),
             voiceRecordingButton(props, narrow),
             startVoiceBroadcastButton(props),
@@ -107,6 +109,7 @@ const MessageComposerButtons: React.FC<IProps> = (props: IProps) => {
                 emojiButton(props)
             ),
             uploadButton(), // props passed via UploadButtonContext
+            shareNextCloudButton({ ...props, room, roomId, matrixClient }), //nextCloud文件分享
         ];
         moreButtons = [
             showStickersButton(props),
@@ -383,6 +386,10 @@ function ComposerModeButton({ isRichTextEnabled, onClick }: WysiwygToggleButtonP
             title={title}
         />
     );
+}
+
+function shareNextCloudButton(props): ReactElement {
+    return <ShareNextCloudButton key="controls_nextCloud_share" {...props} />;
 }
 
 export default MessageComposerButtons;
